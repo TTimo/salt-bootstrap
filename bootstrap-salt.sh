@@ -996,6 +996,10 @@ __gather_linux_system_info() {
         elif [ "${DISTRO_NAME}" = "Arch" ]; then
             DISTRO_NAME="Arch Linux"
             return
+        elif [ "${DISTRO_NAME}" = "SteamOS" ]; then
+            DISTRO_NAME="Debian"
+            DISTRO_VERSION=9
+	    return
         fi
         rv=$(lsb_release -sr)
         [ "${rv}" != "" ] && DISTRO_VERSION=$(__parse_version_string "$rv")
