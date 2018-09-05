@@ -996,10 +996,6 @@ __gather_linux_system_info() {
         elif [ "${DISTRO_NAME}" = "Arch" ]; then
             DISTRO_NAME="Arch Linux"
             return
-        elif [ "${DISTRO_NAME}" = "SteamOS" ]; then
-            DISTRO_NAME="Debian"
-            DISTRO_VERSION=9
-	    return
         fi
         rv=$(lsb_release -sr)
         [ "${rv}" != "" ] && DISTRO_VERSION=$(__parse_version_string "$rv")
@@ -1429,7 +1425,7 @@ __debian_derivatives_translation() {
     # If the file does not exist, return
     [ ! -f /etc/os-release ] && return
 
-    DEBIAN_DERIVATIVES="(cumulus_.+|devuan|kali|linuxmint|raspbian)"
+    DEBIAN_DERIVATIVES="(cumulus_.+|devuan|kali|linuxmint|raspbian|steamos)"
     # Mappings
     cumulus_2_debian_base="7.0"
     cumulus_3_debian_base="8.0"
@@ -1439,6 +1435,7 @@ __debian_derivatives_translation() {
     linuxmint_1_debian_base="8.0"
     raspbian_8_debian_base="8.0"
     raspbian_9_debian_base="9.0"
+    steamos_3_debian_base="9.0"
 
     # Translate Debian derivatives to their base Debian version
     match=$(echo "$DISTRO_NAME_L" | grep -E ${DEBIAN_DERIVATIVES})
@@ -1465,6 +1462,9 @@ __debian_derivatives_translation() {
                 _major=$(echo "$DISTRO_VERSION" | sed 's/^\([0-9]*\).*/\1/g')
                 _debian_derivative="raspbian"
                 ;;
+	    steamos)
+		_major=$(echo "$DISTRO_VERSION" | sed 's/^\([0-9]*\).*/\1/g')
+		_debian_derivative="steamos"
         esac
 
         _debian_version=$(eval echo "\$${_debian_derivative}_${_major}_debian_base" 2>/dev/null)
