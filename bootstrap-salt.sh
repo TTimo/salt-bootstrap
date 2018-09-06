@@ -3101,7 +3101,7 @@ install_debian_git_deps() {
 
     __git_clone_and_checkout || return 1
 
-    __PACKAGES="libzmq3 libzmq3-dev lsb-release python-apt python-backports.ssl-match-hostname"
+    __PACKAGES="libzmq3-dev lsb-release python-apt python-backports.ssl-match-hostname"
     __PACKAGES="${__PACKAGES} python-crypto python-jinja2 python-msgpack python-m2crypto"
     __PACKAGES="${__PACKAGES} python-requests python-tornado python-yaml python-zmq"
 
